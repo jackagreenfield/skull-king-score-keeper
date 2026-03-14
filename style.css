@@ -1,0 +1,46 @@
+body {
+	background-color: lightblue;
+}
+
+#names{
+	max-width: max-content;
+	margin-inline: auto;
+}
+
+.trick{
+	display: table;
+    width: 200px;
+    margin-left: calc(50% - 100px);
+    table-layout: fixed;
+}
+
+.bet {
+	margin-right: 5px;
+	width: 30px;
+}
+
+.get {
+	margin-right: px;
+	width: 30px;
+}
+
+.nameElement{
+	width: 75px;
+	display: inline-block;
+}
+
+.move{
+	max-width: max-content;
+	margin-inline: auto;
+}
+
+#shoveoff{
+	width: 75px;
+	position: relative;
+	left: calc(50% - 75px/2);
+}
+
+.score{
+	color: black;
+	padding-left: 5px;
+}

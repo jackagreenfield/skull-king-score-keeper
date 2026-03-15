@@ -1,136 +1,190 @@
-* --- Global Resets & Mobile Scaling --- */
+/* --- Global Resets & Fluidity --- */
 * {
-  box-sizing: border-box; /* Ensures padding doesn't break width */
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
-  --primary: #4f46e5;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
   --bg-color: #0f172a;
   --card-bg: #1e293b;
+  --input-bg: #334155;
   --text-main: #f8fafc;
   --accent: #10b981;
+  --danger: #ef4444;
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: red;
   color: var(--text-main);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   margin: 0;
-  padding: 15px;
+  padding: env(safe-area-inset-top) 10px env(safe-area-inset-bottom) 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Prevents horizontal scrolling on mobile */
-  overflow-x: hidden; 
+  min-height: 100vh;
 }
 
-/* --- Visibility Fix --- */
-#move {
-  display: none; /* Forces it to be hidden until JS show() is called */
-  margin: 20px auto;
-  text-align: center;
-  background: var(--card-bg);
-  padding: 15px;
-  border-radius: 50px;
-  width: 100%;
-  max-width: 350px;
-}
-
-/* --- Mobile Responsive Layouts --- */
+/* --- Responsive Containers --- */
 #names, .trick {
   width: 100%;
-  max-width: 450px; /* Limits size on desktop */
-  margin: 0 auto;
+  max-width: 500px;
+  margin: 10px auto;
+  animation: fadeIn 0.3s ease-in;
 }
 
 #names {
   background: var(--card-bg);
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 16px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
-/* Form Styling */
-#names input[type="text"] {
-  width: calc(100% - 100px);
+/* --- Form Styling --- */
+.label-group {
+  display: flex;
+  align-items: center;
   margin-bottom: 12px;
-  padding: 10px;
-  background: #334155;
+  gap: 10px;
+}
+
+#names label {
+  flex: 0 0 80px;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+#names input[type="text"] {
+  flex: 1;
+  padding: 12px;
+  background: var(--input-bg);
   border: 1px solid #475569;
   color: white;
-  border-radius: 6px;
-  font-size: 16px; /* Prevents iOS zoom on focus */
-}
-
-/* --- Round Controls --- */
-#trickNum {
-  display: inline-block;
-  min-width: 100px;
-  font-weight: bold;
-  font-size: 1.2rem;
-  vertical-align: middle;
-}
-
-#plus, #minus, #shoveoff {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 10px 15px;
   border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
+  font-size: 16px; /* Prevents iOS zoom */
+  outline: none;
 }
 
-/* --- The Scoreboard Rows --- */
+#names input[type="text"]:focus {
+  border-color: var(--primary);
+}
+
+/* --- Sticky Navigation / Controls --- */
+#move {
+  display: none; 
+  position: sticky;
+  top: 10px;
+  z-index: 100;
+  background: var(--card-bg);
+  padding: 12px 20px;
+  border-radius: 50px;
+  width: 95%;
+  max-width: 400px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- Improved Scoreboard Grid --- */
 .trick p {
-  display: flex; /* Keeps elements in one line */
+  display: grid;
+  /* Columns: Name (fluid) | Bet (fixed) | Get (fixed) | Score (fixed) */
+  grid-template-columns: 1fr 50px 50px 70px;
   align-items: center;
   background: var(--card-bg);
-  margin: 10px 0;
-  padding: 12px;
-  border-radius: 8px;
-  gap: 8px;
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 12px;
+  gap: 10px;
 }
 
 .nameElement {
-  flex: 2; /* Takes up remaining space */
   font-weight: 600;
+  font-size: 1rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #e2e8f0;
 }
 
-/* Number Inputs */
 .bet, .get {
-  width: 45px;
-  height: 40px;
+  width: 100%;
+  height: 45px;
   text-align: center;
-  background: #334155;
-  border: 1px solid #475569;
+  background: var(--input-bg);
+  border: 2px solid transparent;
   color: white;
-  border-radius: 6px;
-  font-size: 16px; /* Vital for mobile usability */
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.bet:focus, .get:focus {
+  border-color: var(--primary);
+  outline: none;
 }
 
 .score {
-  flex: 1;
   text-align: right;
   color: var(--accent);
   font-weight: 800;
-  font-family: monospace;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
 }
 
-/* --- Mobile Specific Adjustments --- */
-@media (max-width: 480px) {
-  body {
-    padding: 10px;
+/* --- UI Buttons --- */
+.button, #plus, #minus, #shoveoff {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.2s;
+}
+
+#shoveoff {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+.button:active, #plus:active, #minus:active {
+  transform: scale(0.95);
+}
+
+#plus, #minus {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Small Screen Optimization --- */
+@media (max-width: 400px) {
+  .trick p {
+    grid-template-columns: 1fr 45px 45px 55px;
+    gap: 5px;
+    padding: 8px;
   }
   
   .nameElement {
+    font-size: 0.85rem;
+  }
+  
+  .score {
     font-size: 0.9rem;
   }
+}
 
-  .trick p {
-    padding: 8px;
-    gap: 5px;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

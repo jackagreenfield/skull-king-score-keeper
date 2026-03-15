@@ -1,46 +1,162 @@
+/* --- Global Styles --- */
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #6366f1;
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #10b981; /* Success green for scores */
+}
+
 body {
-	background-color: lightblue;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
-#names{
-	max-width: max-content;
-	margin-inline: auto;
+/* --- Initial Setup Form (#names) --- */
+#names {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
 }
 
-.trick{
-	display: table;
-    width: 200px;
-    margin-left: calc(50% - 100px);
-    table-layout: fixed;
+#names label {
+  display: inline-block;
+  width: 80px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
 }
 
-.bet {
-	margin-right: 5px;
-	width: 30px;
+#names input[type="text"] {
+  background: #334155;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  color: white;
+  padding: 8px 12px;
+  width: calc(100% - 100px);
+  margin-bottom: 10px;
+  transition: border-color 0.2s;
 }
 
-.get {
-	margin-right: px;
-	width: 30px;
+#names input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary);
 }
 
-.nameElement{
-	width: 75px;
-	display: inline-block;
+/* --- Buttons --- */
+.button, #shoveoff, #plus, #minus {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.move{
-	max-width: max-content;
-	margin-inline: auto;
+.button:hover, #shoveoff:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
 }
 
-#shoveoff{
-	width: 75px;
-	position: relative;
-	left: calc(50% - 75px/2);
+#shoveoff {
+  margin-top: 20px;
+  width: 100%;
 }
 
-.score{
-	color: black;
-	padding-left: 5px;
+/* --- Game Controls (#move) --- */
+.move {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--card-bg);
+  padding: 15px 30px;
+  border-radius: 50px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+#trickNum {
+  font-size: 1.25rem;
+  font-weight: 800;
+  min-width: 100px;
+  text-align: center;
+}
+
+#plus, #minus {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+
+/* --- The Scoreboard (.trick) --- */
+.trick {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Styling the rows (the <p> tags created by JS) */
+.trick p {
+  background: var(--card-bg);
+  margin: 8px 0;
+  padding: 12px 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nameElement {
+  flex: 2;
+  font-weight: 600;
+  color: var(--text-main);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bet, .get {
+  flex: 0.5;
+  background: #334155;
+  border: 1px solid #475569;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  margin: 0 5px;
+  font-size: 1rem;
+}
+
+.score {
+  flex: 1;
+  text-align: right;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+/* Chrome/Safari/Edge - Remove arrows from number inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

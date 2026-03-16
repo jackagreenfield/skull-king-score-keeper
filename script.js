@@ -50,6 +50,17 @@ for(let j=0;j<10;j++){
 }*/
 
 function submitNames(){
+  var nameCount=0;
+  for(let x=0;x<8;x++){
+    var y=document.getElementById("p"+(x+1));
+    if (y.value!=""){
+      nameCount++;
+    }
+  }
+  if (nameCount<2){
+    return;
+  }
+
   hide(names);
   show(move);
   for(let j=0;j<10;j++){
@@ -63,9 +74,11 @@ function submitNames(){
         col0.classList.add("col-5");
         col0.classList.add("text-end");
         const col1 = document.createElement("div");
-        col1.classList.add("col-1");
+        col1.classList.add("col-1");        
+        col1.classList.add("text-center")
         const col2 = document.createElement("div");
         col2.classList.add("col-1");
+        col2.classList.add("text-center")
         const col3 = document.createElement("div");
         col3.classList.add("col-5");
         col3.classList.add("text-start")

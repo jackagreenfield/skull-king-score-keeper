@@ -9,9 +9,9 @@ body {
 
 .trick{
 	display: table;
-    width: 60%;
+    width: 90%;
     table-layout: fixed;
-    margin-left: 20%;
+    margin-left: 5%;
     padding: 10px;
 }
 
@@ -42,16 +42,16 @@ body {
 
 .bet {
 	margin-right: 5px;
-	width: 30px;
+	width: 50px;
 }
 
 .get {
 	margin-right: px;
-	width: 30px;
+	width: 50px;
 }
 
 .nameElement{
-	width: 75px;
+	width: 50px;
 	display: inline-block;
 }
 

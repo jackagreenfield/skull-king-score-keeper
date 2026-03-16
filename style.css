@@ -1,190 +1,76 @@
-/* --- Global Resets & Fluidity --- */
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-:root {
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --bg-color: #0f172a;
-  --card-bg: #1e293b;
-  --input-bg: #334155;
-  --text-main: #f8fafc;
-  --accent: #10b981;
-  --danger: #ef4444;
-}
-
 body {
-  background-color: red;
-  color: var(--text-main);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  margin: 0;
-  padding: env(safe-area-inset-top) 10px env(safe-area-inset-bottom) 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
+	background-color: lightblue;
 }
 
-/* --- Responsive Containers --- */
-#names, .trick {
-  width: 100%;
-  max-width: 500px;
-  margin: 10px auto;
-  animation: fadeIn 0.3s ease-in;
+#names{
+	max-width: max-content;
+	margin-inline: auto;
 }
 
-#names {
-  background: var(--card-bg);
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+.trick{
+	display: table;
+    width: 60%;
+    table-layout: fixed;
+    margin-left: 20%;
+    padding: 10px;
 }
 
-/* --- Form Styling --- */
-.label-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-  gap: 10px;
+.col{
+	width: 5%;
+	padding-left: 0px;
 }
 
-#names label {
-  flex: 0 0 80px;
-  font-size: 0.9rem;
-  color: #94a3b8;
+.row{
+	margin-top: 5px;
+	margin-inline: auto;
 }
 
-#names input[type="text"] {
-  flex: 1;
-  padding: 12px;
-  background: var(--input-bg);
-  border: 1px solid #475569;
-  color: white;
-  border-radius: 8px;
-  font-size: 16px; /* Prevents iOS zoom */
-  outline: none;
+.no-gutters{
+  margin-right: 0;
+  margin-left: 0;
 }
 
-#names input[type="text"]:focus {
-  border-color: var(--primary);
+.container-fluid{
+	width: 100%;
+}
+#nameInput{
+	margin: 5px;
+	padding-left: 25px;
+	padding-right: 10px;
+	padding-top: 22px;
 }
 
-/* --- Sticky Navigation / Controls --- */
-#move {
-  display: none; 
-  position: sticky;
-  top: 10px;
-  z-index: 100;
-  background: var(--card-bg);
-  padding: 12px 20px;
-  border-radius: 50px;
-  width: 95%;
-  max-width: 400px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-  justify-content: space-between;
-  align-items: center;
+.bet {
+	margin-right: 5px;
+	width: 30px;
 }
 
-/* --- Improved Scoreboard Grid --- */
-.trick p {
-  display: grid;
-  /* Columns: Name (fluid) | Bet (fixed) | Get (fixed) | Score (fixed) */
-  grid-template-columns: 1fr 50px 50px 70px;
-  align-items: center;
-  background: var(--card-bg);
-  margin: 8px 0;
-  padding: 10px 15px;
-  border-radius: 12px;
-  gap: 10px;
+.get {
+	margin-right: px;
+	width: 30px;
 }
 
-.nameElement {
-  font-weight: 600;
-  font-size: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #e2e8f0;
+.nameElement{
+	width: 75px;
+	display: inline-block;
 }
 
-.bet, .get {
-  width: 100%;
-  height: 45px;
-  text-align: center;
-  background: var(--input-bg);
-  border: 2px solid transparent;
-  color: white;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
+.move{
+
+	margin: 5px;
+	font-weight: bold;
+	max-width: max-content;
+	margin-inline: auto;
+	padding: 10px;
 }
 
-.bet:focus, .get:focus {
-  border-color: var(--primary);
-  outline: none;
+#shoveoff{
+	width: 90px;
+	position: relative;
+	left: calc(50% - 90px/2);
 }
 
-.score {
-  text-align: right;
-  color: var(--accent);
-  font-weight: 800;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.1rem;
-}
-
-/* --- UI Buttons --- */
-.button, #plus, #minus, #shoveoff {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.1s, background 0.2s;
-}
-
-#shoveoff {
-  width: 100%;
-  margin-top: 10px;
-  font-size: 1.1rem;
-}
-
-.button:active, #plus:active, #minus:active {
-  transform: scale(0.95);
-}
-
-#plus, #minus {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* --- Small Screen Optimization --- */
-@media (max-width: 400px) {
-  .trick p {
-    grid-template-columns: 1fr 45px 45px 55px;
-    gap: 5px;
-    padding: 8px;
-  }
-  
-  .nameElement {
-    font-size: 0.85rem;
-  }
-  
-  .score {
-    font-size: 0.9rem;
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.score{
+	color: black;
+	padding-left: 5px;
 }

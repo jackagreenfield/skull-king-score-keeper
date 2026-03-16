@@ -2,7 +2,7 @@ var trickShown=0;
 var trickShowable=0;
 var players=[];
 
-function submitNames() { 
+/*function submitNames() { 
   hide(names);
 
   show(move);
@@ -10,9 +10,7 @@ function submitNames() {
 for(let j=0;j<10;j++){
 
   for(let i = 0; i < 8; i++){
-    var l=document.getElementById("l"+(i+1));
     var p=document.getElementById("p"+(i+1));
-    l.textContent=p.value;
     if (p.value!=""){
       const para = document.createElement("p");
       const node = document.createElement("div");
@@ -49,7 +47,69 @@ for(let j=0;j<10;j++){
     }
     }
   }
+}*/
+
+function submitNames(){
+  hide(names);
+  show(move);
+  for(let j=0;j<10;j++){
+    for (let i=0;i<8;i++){
+      var p=document.getElementById("p"+(i+1));
+      if (p.value!=""){
+        const row = document.createElement("div");
+        row.classList.add("row");
+        row.classList.add("justify-content-center");
+        const col0 = document.createElement("div");
+        col0.classList.add("col-5");
+        col0.classList.add("text-end");
+        const col1 = document.createElement("div");
+        col1.classList.add("col-1");
+        const col2 = document.createElement("div");
+        col2.classList.add("col-1");
+        const col3 = document.createElement("div");
+        col3.classList.add("col-5");
+        col3.classList.add("text-start")
+        var name=document.createElement("label");
+        name.setAttribute("id",p.value+j);
+        name.className=("name");
+        name.textContent=p.value;
+        col0.appendChild(name);
+        var bet = document.createElement("input");
+        bet.setAttribute("type", "number");
+        bet.setAttribute('min',0);
+        bet.setAttribute("max",j+1);
+        bet.setAttribute("id","bet"+i+j)
+        bet.setAttribute("value", "");
+        bet.className = "bet";
+        col1.appendChild(bet);
+        var get = document.createElement("input");
+        get.setAttribute("type", "number");
+        get.setAttribute('min',0);
+        get.setAttribute("max",j+1);
+        get.setAttribute("id","get"+i+j)
+        get.setAttribute("value", "");
+        get.className = "get";
+        col2.appendChild(get);
+        var score = document.createElement("label");
+        score.setAttribute("id","score"+i+","+j);
+        score.className="score";
+        score.textContent="";
+        col3.appendChild(score);
+        row.appendChild(col0);
+        row.appendChild(col1);
+        row.appendChild(col2);
+        row.appendChild(col3);
+        addEventListeners(bet,get,score);
+        var trick=document.getElementById("trick"+j);
+        trick.classList.add("trick");
+        trick.appendChild(row);  
+        if (j==0){ 
+          players.push(i);
+      }
+    }
+  }
 }
+
 moveTrick();
 
 console.log(players);
@@ -68,7 +128,7 @@ function moveTrick(){
   var trick=document.getElementById("trick"+trickShown);
   show(trick);
   var trickNum=document.getElementById("trickNum");
-  trickNum.textContent="Trick "+(trickShown+1);
+  trickNum.textContent="Round "+(trickShown+1);
 }
 
 function plusTrick(){
@@ -94,10 +154,12 @@ function minusTrick(){
 
 
 function hide(element){
-  element.style.display="none";
+  element.classList.remove("d-block");
+  element.classList.add("d-none");
 }
 function show(element){
-  element.style.display="block";
+  element.classList.remove("d-none");
+  element.classList.add("d-block");
 }
 
 function updateScore(bet,get,score){

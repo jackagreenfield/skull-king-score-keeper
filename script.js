@@ -71,16 +71,16 @@ function submitNames(){
         row.classList.add("row");
         row.classList.add("justify-content-center");
         const col0 = document.createElement("div");
-        col0.classList.add("col-5");
+        col0.classList.add("col-4");
         col0.classList.add("text-end");
         const col1 = document.createElement("div");
-        col1.classList.add("col-1");        
+        col1.classList.add("col-2");        
         col1.classList.add("text-center")
         const col2 = document.createElement("div");
-        col2.classList.add("col-1");
+        col2.classList.add("col-2");
         col2.classList.add("text-center")
         const col3 = document.createElement("div");
-        col3.classList.add("col-5");
+        col3.classList.add("col-4");
         col3.classList.add("text-start")
         var name=document.createElement("label");
         name.setAttribute("id",p.value+j);
@@ -205,6 +205,7 @@ function updateScore(bet,get,score){
     }else{
       score.textContent=-10*Math.abs(get.value-bet.value)+parseInt(previousScore.textContent);
     }
+    score.textContent=scoreSpacing(score.textContent);
  
   trickDone(trickShown);
 }
@@ -217,9 +218,15 @@ function trickDone(t){
   }
     if (t==trickShowable){
       trickShowable++;
-      trickDone(t+1);
-    
+      trickDone(t+1);  
   }
+}
+
+function scoreSpacing(score){
+  if (parseInt(score)>=0){
+    return "+"+score;
+  }
+  return score;
 }
 
 function lockTrick(get,bet,score){
@@ -258,7 +265,7 @@ function updateAllScores(){
       }
 
       document.getElementById("score"+j+","+i).textContent= (addScore+previousScore).toString();
-
+      document.getElementById("score"+j+","+i).textContent=scoreSpacing(document.getElementById("score"+j+","+i).textContent);
     }
   }
 }
